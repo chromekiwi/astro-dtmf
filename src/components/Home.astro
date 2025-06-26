@@ -47,9 +47,9 @@ import background from '../assets/background.webp';
     position: fixed; /* fills the viewport and stays put */
     inset: 0;
     display: flex;
-    justify-content: center;
+    justify-content: center; /* mobile-first: start content near top */
     align-items: center;
-    overflow: hidden; /* relaxed on tiny phones in the MQ below */
+    overflow-y: auto; /* mobile-first: allow scrolling */
     font-family:
       system-ui,
       -apple-system,
@@ -70,43 +70,54 @@ import background from '../assets/background.webp';
     top: 50%;
     left: 50%;
     width: 120vw;
-    height: 120vh;
+    height: 105vh;
     transform: translate(-50%, -50%) scale(1.5);
     object-fit: cover;
-    filter: blur(35px);
+    filter: blur(15px);
     z-index: -1; /* behind everything */
     pointer-events: none;
   }
 
-  /* Foreground flex wrapper */
+  /* Foreground flex wrapper - mobile-first styles */
   main {
     position: relative; /* keeps z-index context */
     z-index: 1;
     display: flex;
-    flex-direction: row; /* side-by-side by default */
+    flex-direction: column; /* mobile-first: stack vertically */
     gap: 2rem;
     max-width: 90vw;
-    max-height: 70vh;
+    max-height: none; /* mobile-first: no height restriction */
     color: #fff;
     text-align: center;
     flex-wrap: nowrap;
     container-type: inline-size; /* enables container queries if desired */
-    justify-content: center;
+    justify-content: flex-start; /* mobile-first: align to top */
     align-items: center;
+    margin-top: 12rem; /* mobile-first: breathing room top & bottom */
   }
 
-  /* Stack the blocks if width is narrow OR height is short */
-  @media (max-width: 768px), (max-height: 700px) {
+  /* Use side-by-side layout for larger screens */
+  @media (min-width: 481px) and (min-height: 701px) {
+    #container {
+      justify-content: center;
+      overflow: hidden; /* prevent scrolling on larger screens */
+    }
+
     main {
-      flex-direction: column;
+      flex-direction: row; /* side-by-side layout */
+      max-height: 70vh;
+      justify-content: center;
+      margin-block: 2rem; /* remove top/bottom margin */
     }
   }
 
+  /* Mobile-first ticket styles */
   .ticket {
-    height: 37.5vh;
-    width: clamp(280px, 30vw, 340px);
-    padding: clamp(1.5rem, 4vw, 2rem);
-    background: rgb(0 0 0 / 0.7);
+    height: auto; /* mobile-first: flexible height */
+    width: 70vw;
+    max-width: 320px;
+    padding: 1.25rem;
+    background: rgb(0 0 0 / 0.8);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgb(0 0 0 / 0.5);
     display: flex;
@@ -116,9 +127,14 @@ import background from '../assets/background.webp';
     flex-shrink: 0;
   }
 
+  .ticket h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
   .ticket section {
     display: flex;
-    gap: 1rem;
+    gap: 2rem;
     justify-content: center;
   }
 
@@ -130,58 +146,57 @@ import background from '../assets/background.webp';
   }
 
   .ticket h3 {
-    color: #adadad;
     font-size: 1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: lighter;
+    margin-bottom: 0.25rem; /* reduce bottom margin */
   }
 
+  .ticket h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-top: 0; /* remove top margin */
+  }
+
+  .ticket article {
+    margin: 0; /* ensure no extra margin on articles */
+  }
+
+  /* Mobile-first Spotify embed styles */
   .spotify-embed {
     height: auto;
-    width: clamp(380px, 50vw, 380px);
+    width: 80vw;
     flex-shrink: 0;
   }
 
   .spotify-embed iframe {
     width: 100%;
-    height: 45vh;
+    aspect-ratio: 16 / 9;
+    height: 60vh;
     border: none;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgb(0 0 0 / 0.3);
   }
 
-  /* Everything at or below 480 px wide (common small phones) */
-  @media (max-width: 480px) {
-    /* Let the container scroll if the column is still taller than the viewport */
-    #container {
-      overflow-y: auto;
-    }
-
-    /* Start content near the top so the user doesn’t land mid-stack */
-    main {
-      justify-content: flex-start;
-      margin-block: 2rem; /* breathing room top & bottom */
-    }
-
-    /* Use up to 90 % of the viewport width—but cap at 320 px */
+  /* Larger screen adaptations */
+  @media (min-width: 481px) {
     .ticket {
-      width: 70vw;
-      max-width: 320px;
-      padding: 1.25rem;
+      height: 41.5vh;
+      width: clamp(280px, 30vw, 340px);
+      padding: clamp(1.5rem, 4vw, 2rem);
     }
 
     .ticket h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
+      font-size: xx-large; /* reset to default font size */
     }
 
     .spotify-embed {
-      height: auto; /* let the embed shrink to fit */
-      width: 80vw;
+      width: clamp(325px, 50vw, 380px);
     }
 
-    /* Keep the embed a neat 16:9 box, never more than 60 % of screen height */
     .spotify-embed iframe {
-      aspect-ratio: 16 / 9;
-      height: 60vh;
+      height: 50vh;
+      aspect-ratio: initial; /* let height take precedence */
     }
   }
 </style>
