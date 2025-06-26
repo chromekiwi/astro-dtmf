@@ -50,6 +50,7 @@ import background from '../assets/background.webp';
     justify-content: center; /* mobile-first: start content near top */
     align-items: center;
     overflow-y: auto; /* mobile-first: allow scrolling */
+    overflow-x: hidden;
     font-family:
       system-ui,
       -apple-system,
@@ -97,7 +98,7 @@ import background from '../assets/background.webp';
   }
 
   /* Use side-by-side layout for larger screens */
-  @media (min-width: 481px) and (min-height: 701px) {
+  @media (min-width: 481px) and (min-height: 680px) {
     #container {
       justify-content: center;
       overflow: hidden; /* prevent scrolling on larger screens */
@@ -177,9 +178,9 @@ import background from '../assets/background.webp';
   }
 
   /* Larger screen adaptations */
-  @media (min-width: 481px) {
+  @media (min-width: 481px) and (min-height: 680px) {
     .ticket {
-      height: 41.5vh;
+      height: 43vh;
       width: clamp(280px, 30vw, 340px);
       padding: clamp(1.5rem, 4vw, 2rem);
     }
@@ -193,7 +194,7 @@ import background from '../assets/background.webp';
     }
 
     .spotify-embed iframe {
-      height: 50vh;
+      height: 52vh;
       aspect-ratio: initial; /* let height take precedence */
     }
   }
