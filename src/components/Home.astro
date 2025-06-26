@@ -14,7 +14,7 @@ import background from '../assets/background.webp';
 
   <main>
     <div class="ticket">
-      <h1>DeBÍ TiRAR MáS FOtoS</h1>
+      <h1>DeBÍ TiRAR MáS FOToS</h1>
       <h2>Fri 12 Dec 2025, 9:00p.m. Estadio GNP Seguros</h2>
       <section>
         <article>
@@ -68,11 +68,11 @@ import background from '../assets/background.webp';
   /* Oversized, blurred album art in the background */
   .background {
     position: absolute;
-    top: 50%;
+    top: 55%;
     left: 50%;
     width: 120vw;
-    height: 110vh;
-    transform: translate(-50%, -50%) scale(1.5);
+    height: 115vh;
+    transform: translate(-50%, -50%) scale(1.2);
     object-fit: cover;
     filter: blur(15px);
     z-index: -1; /* behind everything */
@@ -85,8 +85,7 @@ import background from '../assets/background.webp';
     z-index: 1;
     display: flex;
     flex-direction: column; /* mobile-first: stack vertically */
-    gap: 2rem;
-    max-width: 90vw;
+    gap: 1rem;
     max-height: none; /* mobile-first: no height restriction */
     color: #fff;
     text-align: center;
@@ -94,7 +93,7 @@ import background from '../assets/background.webp';
     container-type: inline-size; /* enables container queries if desired */
     justify-content: flex-start; /* mobile-first: align to top */
     align-items: center;
-    margin-top: 16rem; /* mobile-first: breathing room top & bottom */
+    margin-top: 10rem; /* mobile-first: breathing room top & bottom */
   }
 
   /* Use side-by-side layout for larger screens */
@@ -118,7 +117,7 @@ import background from '../assets/background.webp';
     width: 70vw;
     max-width: 320px;
     padding: 1.25rem;
-    background: rgb(0 0 0 / 0.8);
+    background: rgb(0 0 0 / 0.75);
     border-radius: 12px;
     box-shadow: 0 4px 20px rgb(0 0 0 / 0.5);
     display: flex;
@@ -147,14 +146,15 @@ import background from '../assets/background.webp';
   }
 
   .ticket h3 {
-    font-size: 1rem;
+    color: #d4d4d4;
+    font-size: 0.9rem;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: lighter;
     margin-bottom: 0.25rem; /* reduce bottom margin */
   }
 
   .ticket h4 {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: bold;
     margin-top: 0; /* remove top margin */
   }
