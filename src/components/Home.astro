@@ -1,0 +1,187 @@
+---
+import { Image } from 'astro:assets';
+import background from '../assets/background.webp';
+---
+
+<div id="container">
+  <Image
+    src={background}
+    alt="'DeBÍ TiRAR MáS FOToS' album cover blurred background"
+    class="background"
+    loading="eager"
+    decoding="async"
+  />
+
+  <main>
+    <div class="ticket">
+      <h1>DeBÍ TiRAR MáS FOtoS</h1>
+      <h2>Fri 12 Dec 2025, 9:00p.m. Estadio GNP Seguros</h2>
+      <section>
+        <article>
+          <h3>SEC</h3>
+          <h4>NA-14</h4>
+        </article>
+        <article>
+          <h3>ROW</h3>
+          <h4>24</h4>
+        </article>
+        <article>
+          <h3>SEAT</h3>
+          <h4>4</h4>
+        </article>
+      </section>
+    </div>
+
+    <div class="spotify-embed">
+      <iframe
+        src="https://open.spotify.com/embed/album/5K79FLRUCSysQnVESLcTdb?utm_source=generator&theme=0"
+        loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      ></iframe>
+    </div>
+  </main>
+</div>
+
+<style>
+  #container {
+    position: fixed; /* fills the viewport and stays put */
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* relaxed on tiny phones in the MQ below */
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      Oxygen,
+      Ubuntu,
+      Cantarell,
+      'Open Sans',
+      'Helvetica Neue',
+      sans-serif;
+  }
+
+  /* Oversized, blurred album art in the background */
+  .background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120vw;
+    height: 120vh;
+    transform: translate(-50%, -50%) scale(1.5);
+    object-fit: cover;
+    filter: blur(35px);
+    z-index: -1; /* behind everything */
+    pointer-events: none;
+  }
+
+  /* Foreground flex wrapper */
+  main {
+    position: relative; /* keeps z-index context */
+    z-index: 1;
+    display: flex;
+    flex-direction: row; /* side-by-side by default */
+    gap: 2rem;
+    max-width: 90vw;
+    max-height: 70vh;
+    color: #fff;
+    text-align: center;
+    flex-wrap: nowrap;
+    container-type: inline-size; /* enables container queries if desired */
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Stack the blocks if width is narrow OR height is short */
+  @media (max-width: 768px), (max-height: 700px) {
+    main {
+      flex-direction: column;
+    }
+  }
+
+  .ticket {
+    height: 37.5vh;
+    width: clamp(280px, 30vw, 340px);
+    padding: clamp(1.5rem, 4vw, 2rem);
+    background: rgb(0 0 0 / 0.7);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .ticket section {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  .ticket h2 {
+    color: #d4d4d4;
+    font-weight: normal;
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
+  .ticket h3 {
+    color: #adadad;
+    font-size: 1rem;
+  }
+
+  .spotify-embed {
+    height: auto;
+    width: clamp(380px, 50vw, 380px);
+    flex-shrink: 0;
+  }
+
+  .spotify-embed iframe {
+    width: 100%;
+    height: 45vh;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgb(0 0 0 / 0.3);
+  }
+
+  /* Everything at or below 480 px wide (common small phones) */
+  @media (max-width: 480px) {
+    /* Let the container scroll if the column is still taller than the viewport */
+    #container {
+      overflow-y: auto;
+    }
+
+    /* Start content near the top so the user doesn’t land mid-stack */
+    main {
+      justify-content: flex-start;
+      margin-block: 2rem; /* breathing room top & bottom */
+    }
+
+    /* Use up to 90 % of the viewport width—but cap at 320 px */
+    .ticket {
+      width: 70vw;
+      max-width: 320px;
+      padding: 1.25rem;
+    }
+
+    .ticket h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .spotify-embed {
+      height: auto; /* let the embed shrink to fit */
+      width: 80vw;
+    }
+
+    /* Keep the embed a neat 16:9 box, never more than 60 % of screen height */
+    .spotify-embed iframe {
+      aspect-ratio: 16 / 9;
+      height: 60vh;
+    }
+  }
+</style>
